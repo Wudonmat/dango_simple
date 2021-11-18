@@ -4,6 +4,10 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import LoginView, LogoutView
 from django.shortcuts import render, redirect
 from django.urls import reverse
+from django.core.exceptions import PermissionDenied
+from .forms import CsRegisterForm
+from django.views.generic import CreateView
+
 
 from .forms import UserCreationForm
 from blog.models import Post
