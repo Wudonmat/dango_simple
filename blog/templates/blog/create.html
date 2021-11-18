@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>write</title>
+</head>
+<body>
+    <form action="/blog/post-write/" method="post" id="blog-write" enctype="multipart/form-data">
+        {% csrf_token %}
+        Title: <input type="text" name="title"/>
+        <div>
+            Head Image: <input type="file" id="image" name="image" form="blog-write"/>
+        </div>
+        <input type="submit" />
+    </form>
+    <textarea name="text" form="blog-write">Enter Content</textarea>
+</body>
+</html>

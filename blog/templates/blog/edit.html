@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>edit</title>
+</head>
+<body>
+    <form action="/blog/post-edit/{{ post.id }}/" method="post" id="blog-edit" enctype="multipart/form-data">
+<!--    <form action="{% url 'blog:edit' post.id %}" method="post" id="blog-edit" enctype="multipart/form-data">-->
+        {% csrf_token %}
+        Title: <input type="text" name="title" value="{{ post.title }}"/>
+        <div>
+            Head Image: <input type="file" id="image" name="image" form="blog-edit"/>
+        </div>
+        <input type="submit" />
+    </form>
+    <textarea name="text" form="blog-edit">{{ post.text }}</textarea>
+</body>
+</html>

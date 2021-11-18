@@ -1,0 +1,25 @@
+{% extends 'main/layout.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block head %}
+<title>Blog</title>
+{% endblock head %}
+{% block content %}
+    <div>
+        <h1><a href="">Dango Blog</a></h1>
+    </div>
+{% for post in post_list %}
+    <div style="width: 600px;">
+        <a href="/blog/post/{{ post.id }}/">
+            {% if post.head_image %}
+            <img src="{{ post.head_image.url }}" alt="Post Head Image" style="width: 100%">
+            {% else %}
+            <img src="{% static 'blog/img/noimg.jpg' %}" alt="No image" style="width: 100%">
+            {% endif %}
+        </a>
+    </div>
+{% endfor %}
+{% endblock content %}
+{% block scripts %}
+
+{% endblock %}
