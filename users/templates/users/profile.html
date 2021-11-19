@@ -34,13 +34,13 @@
 <!-- 프로필 페이지 -->
 <header>
 	<div class="container">
-		<div class="profile">
+		<div class="profile" style="border-bottom: solid 1px lightgrey;">
 			<div class="profile-image">
 				<img src="{{ avatar }}" alt="User Profile" class="img-fluid mb-3">
 			</div>
 			<div class="profile-user-settings">
 				<a class="profile-user-name">{{ user.username }}</a>&nbsp&nbsp&nbsp<a>가입일 : {{ user.date_joined|date }}</a>
-				<button class="btn profile-edit-btn bg-black text-black">프로필 수정</button>
+				<a class="btn profile-edit-btn bg-black text-black" href="" role="button">프로필 수정</a>
                 <a class="btn profile-edit-btn btn-danger" href="{% url 'users:logout' %}" role="button">로그아웃</a>
 			</div>
 			<div class="profile-stats" style="margin: 10px;">
@@ -61,6 +61,11 @@
 	</div>
 	<!-- End of container -->
 </header>
+    <div class="container">
+        <div class="row justify-content-end" style="display: grid; grid-template-columns: 0.5fr 2fr; grid-template-rows: repeat(1, auto); grid-column-gap: 3rem; padding: 1rem 0;">
+        <a class="btn profile-edit-btn btn-danger" href="{% url 'blog:create' %}" role="button">글쓰기</a>
+        </div>
+    </div>
 <main>
 
         <div class="container">

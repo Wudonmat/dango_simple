@@ -1,24 +1,40 @@
 from django import forms
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserChangeForm
 from .models import MyUser
 
 
 class UserCreationForm(forms.ModelForm):
     """A form for creating new users. Includes all the required
     fields, plus a repeated password."""
+    username = forms.CharField(
+        widget=forms.TextInput(
+            attrs={'class': 'form-control', }),
+        error_messages={'required': '아이디을 입력해주세요.'},
+        max_length=17,
+        label='이름'
+    )
+
+    email = forms.CharField(
+        widget=forms.EmailInput(
+            attrs={'class': 'form-control', }),
+        error_messages={'required': '아이디을 입력해주세요.'},
+        max_length=17,
+        label='이메일'
+    )
 
     password1 = forms.CharField(
-        label="Password",
+        label="비밀번호",
         widget=forms.PasswordInput,
-        help_text="Password must be a minimum of 6 characters.",
+        help_text="띄어쓰기 없는 영문,숫자로만 6~20자",
         min_length=6,
     )
     password2 = forms.CharField(
-        label="Password confirmation",
+        label="비밀번호 확인",
         widget=forms.PasswordInput,
         min_length=6,
-        help_text="Enter the same password as before, for verification.",
+        help_text="띄어쓰기 없는 영문,숫자로만 6~20자",
     )
 
     class Meta:
@@ -30,7 +46,7 @@ class UserCreationForm(forms.ModelForm):
         password1 = self.cleaned_data.get("password1")
         password2 = self.cleaned_data.get("password2")
         if password1 and password2 and password1 != password2:
-            raise forms.ValidationError("Passwords don't match")
+            raise forms.ValidationError("비밀번호가 일치하지 않습니다.")
         return password2
 
     def save(self, commit=True):
@@ -61,36 +77,58 @@ class UserChangeForm(forms.ModelForm):
         return self.initial["password"]
 
 
-def hp_validatior(value):
-    if len(str(value)) != 10:
-        raise forms.ValidationError('정확한 핸드폰 번호를 입력해주세요.')
+class LoginForm(forms.Form):
+    email = forms.CharField(
+        widget=forms.EmailInput(
+            attrs={'class': 'form-control', }),
+        error_messages={'required': '아이디을 입력해주세요.'},
+        max_length=17,
+        label='이메일'
+    )
+    password = forms.CharField(
+        widget=forms.PasswordInput(
+            attrs={'class': 'form-control', }),
+        error_messages={'required': '비밀번호를 입력해주세요.'},
+        label='비밀번호'
+    )
 
-def student_id_validator(value):
-    if len(str(value)) != 8:
-        raise forms.ValidationError('본인의 학번 8자리를 입력해주세요.')
+    def clean(self):
+        cleaned_data = super().clean()
+        username = cleaned_data.get('username')
+        password = cleaned_data.get('password')
 
-class CsRegisterForm(UserCreationForm):
-    def __init__(self, *args, **kwargs):
-        super(CsRegisterForm, self).__init__(*args, **kwargs)
+        if username and password:
+            try:
+                user = MyUser.objects.get(username=username)
+            except MyUser.DoesNotExist:
+                self.add_error('username', '아이디가 존재하지 않습니다.')
+                return
 
-        self.fields['user_id'].label = '아이디'
-        self.fields['user_id'].widget.attrs.update({
-            'class': 'form-control',
-            'autofocus': False
-        })
-        self.fields['password1'].label = '비밀번호'
-        self.fields['password1'].widget.attrs.update({
-            'class': 'form-control',
-        })
+            if not check_password(password, user.password):
+                self.add_error('password', '비밀번호가 틀렸습니다.')
 
-    class Meta:
-        model = MyUser
-        fields = ['user_id', 'password1', 'password2', 'email', 'name', 'hp', 'grade', 'student_id', 'circles']
-
-    def save(self, commit=True):
-        user = super(CsRegisterForm, self).save(commit=False)
-        user.level = '2'
-        user.department = '컴퓨터공학부'
-        user.save()
-
-        return user
+# class CsRegisterForm(UserCreationForm):
+#     def __init__(self, *args, **kwargs):
+#         super(CsRegisterForm, self).__init__(*args, **kwargs)
+#
+#         self.fields['user_id'].label = '아이디'
+#         self.fields['user_id'].widget.attrs.update({
+#             'class': 'form-control',
+#             'autofocus': False
+#         })
+#         self.fields['password1'].label = '비밀번호'
+#         self.fields['password1'].widget.attrs.update({
+#             'class': 'form-control',
+#         })
+#
+#     class Meta:
+#         model = MyUser
+#         fields = ['user_id', 'password1', 'password2', 'email', 'name', 'hp', 'grade', 'student_id', 'circles']
+#
+#     def save(self, commit=True):
+#         user = super(CsRegisterForm, self).save(commit=False)
+#         user.level = '2'
+#         user.department = '컴퓨터공학부'
+#         user.save()
+#
+#         return user

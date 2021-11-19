@@ -26,7 +26,7 @@ SECRET_KEY = "fd2f471d4f64c134a556d8f3370e687b24ef33fa33c545733901a8395e4de8db"
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 # Application definition
 
@@ -112,7 +112,7 @@ AUTH_USER_MODEL = "users.MyUser"
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
 
-LANGUAGE_CODE = "en-us"
+LANGUAGE_CODE = "ko-kr"
 
 TIME_ZONE = "UTC"
 
@@ -132,7 +132,7 @@ LOGIN_URL = "users:login"
 
 STATIC_URL = "/static/"
 
-STATIC_ROOT = "static"
+STATIC_ROOT = "./static"
 
 ASGI_APPLICATION = "chat_app_project.asgi.application"
 

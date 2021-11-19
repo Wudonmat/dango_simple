@@ -1,11 +1,15 @@
 {% extends 'main/layout.html' %}
 {% load crispy_forms_tags %}
+{% block head %}
+{% endblock head %}
 {% block content %}
     <form action="{% url 'users:login' %}" method="post" class="mt-5 ">
     {% csrf_token %}
         <fieldset>
             <legend>댕고 로그인</legend>
-            {{ form|crispy }}
+            <div id="div_id_username" class="form-group"> <label for="id_username" class=" requiredField">
+                이메일<span class="asteriskField">*</span> </label> <div class=""> <input type="text" name="username" autofocus="" autocapitalize="none" autocomplete="username" maxlength="254" class="textinput textInput form-control" required="" id="id_username"> </div> </div> <div id="div_id_password" class="form-group"> <label for="id_password" class=" requiredField">
+                비밀번호<span class="asteriskField">*</span> </label> <div class=""> <input type="password" name="password" autocomplete="current-password" class="textinput textInput form-control" required="" id="id_password"> </div> </div>
             <p class="">아직 회원이 아니신가요? <a href="{% url 'users:register' %}">회원가입</a></p>
             <button type="submit" class="btn btn-primary">로그인</button>
         </fieldset>

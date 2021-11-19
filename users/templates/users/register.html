@@ -4,10 +4,10 @@
     <form action="{% url 'users:register' %}" method="post" class="mt-5 ">
     {% csrf_token %}
         <fieldset>
-            <legend>Create Account - Chat App</legend>
+            <legend>회원가입 - DANGO</legend>
             {{ form|crispy }}
-            <p>Already created an account? <a href="{% url 'users:login' %}">Log In</a></p>
-            <button type="submit" class="btn btn-primary">Create Account</button>
+            <p>이미 회원가입 하셨어요? <a href="{% url 'users:login' %}">로그인</a></p>
+            <button type="submit" class="btn btn-primary">회원가입 완료</button>
         </fieldset>
     </form>
 {% endblock content %}

@@ -1,6 +1,7 @@
 from django.shortcuts import render, HttpResponseRedirect, reverse
 from django.utils import timezone
 from blog.models import Post
+from users.models import MyUser
 
 # Create your views here.
 def blog_home(request):
@@ -18,16 +19,19 @@ def blog_post_view(request, post_id):
     }
     return render(request, 'blog/post.html', context)
 
-def blog_post_write(request):
-    if request.method == "POST":
+def blog_post_create(request):
+    if request.method == "GET":
+        return render(request, "blog/create.html")
+    elif request.method == "POST":
         new_post = Post()
+        new_post.author = request.user
         new_post.title = request.POST["title"]
         new_post.text = request.POST["text"]
-        if request.FILES["image"]:
-            new_post.head_image = request.FILES["image"]
-        new_post.likes = 0
+        if request.FILES.get("image"):
+            new_post.head_image = request.FILES.get("image")
+        # new_post.likes = 0
         new_post.save()
-        return HttpResponseRedirect(reverse("blog:post"))
+        return HttpResponseRedirect(reverse("users:profile"))
 
 def blog_post_delete(request, post_id):
     target_post = Post.objects.get(pk=post_id)

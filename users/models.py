@@ -11,9 +11,9 @@ class MyUserManager(BaseUserManager):
         Create and save a user with the given username, email, and password.
         """
         if not email:
-            raise ValueError("Email Address must be provided")
+            raise ValueError("이메일은 반드시 입력해야합니다.")
         if not username:
-            raise ValueError("Username must be provided")
+            raise ValueError("이름을 입력해주세요.")
 
         email = self.normalize_email(email)
         username = self.model.normalize_username(username)
@@ -33,8 +33,8 @@ class MyUserManager(BaseUserManager):
 
 
 class MyUser(AbstractBaseUser):
-    email = models.EmailField(unique=True, validators=[EmailValidator()])
-    username = models.CharField(unique=True, max_length=30)
+    email = models.EmailField(unique=True,validators=[EmailValidator()])
+    username = models.CharField(unique=True,max_length=30)
     is_active = models.BooleanField(
         "active",
         default=True,

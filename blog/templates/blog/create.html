@@ -5,14 +5,14 @@
     <title>write</title>
 </head>
 <body>
-    <form action="/blog/post-write/" method="post" id="blog-write" enctype="multipart/form-data">
+    <form action="/blog/post-create/" method="post" id="blog-create" enctype="multipart/form-data">
         {% csrf_token %}
         Title: <input type="text" name="title"/>
         <div>
-            Head Image: <input type="file" id="image" name="image" form="blog-write"/>
+            Head Image: <input type="file" id="image" name="image" form="blog-create"/>
         </div>
         <input type="submit" />
     </form>
-    <textarea name="text" form="blog-write">Enter Content</textarea>
+    <textarea name="text" form="blog-create">Enter Content</textarea>
 </body>
 </html>

@@ -7,4 +7,5 @@ urlpatterns = [
     path("blog/post/<int:post_id>/", views.blog_post_view, name="post"),
     path("blog/post-delete/<int:post_id>/", views.blog_post_delete, name="delete"),
     path("blog/post-edit/<int:post_id>/", views.blog_post_edit, name="edit"),
+    path("blog/post-create/", views.blog_post_create, name="create"),
 ]

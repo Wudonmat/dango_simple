@@ -24,6 +24,7 @@ class Post(models.Model):
     author = models.ForeignKey(MyUser, on_delete=models.CASCADE)
     title = models.CharField(max_length=200)
     text = models.TextField()
+    # likes = models.IntegerField()
     head_image = models.ImageField(
         upload_to="blog/img/%Y/%m/%d/%H/",
         blank=True)
