@@ -2,7 +2,8 @@ from django import forms
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.forms import UserChangeForm
-from .models import MyUser
+from .models import *
+from .choice import *
 
 
 class UserCreationForm(forms.ModelForm):
@@ -20,7 +21,6 @@ class UserCreationForm(forms.ModelForm):
         widget=forms.EmailInput(
             attrs={'class': 'form-control', }),
         error_messages={'required': '아이디을 입력해주세요.'},
-        max_length=17,
         label='이메일'
     )
 
@@ -36,10 +36,46 @@ class UserCreationForm(forms.ModelForm):
         min_length=6,
         help_text="띄어쓰기 없는 영문,숫자로만 6~20자",
     )
+    birth_date = forms.CharField(
+        label="생년월일",
+        widget=forms.DateInput,
+        min_length=10,
+    )
+    gender = forms.CharField(
+        label="성별",
+        widget=forms.Select(
+            choices=[
+                (True, '남자'),
+                (False, '여자'),
+            ]
+        )
+    )
+    dog_bread = forms.ChoiceField(choices=BREED_CHOICES,
+        label="견종",
+        widget=forms.Select(
+            attrs={'class': 'form-control',}),
+    )
+    dog_gender = forms.BooleanField(
+        label="강아지 성별",
+        widget=forms.Select(
+            choices=[
+                (True, '수컷'),
+                (False, '암컷'),
+            ]
+        )
+    )
+    size = forms.ChoiceField(choices=SIZE_CHOICES,
+        label="사이즈",
+        widget=forms.Select(
+            attrs={'class': 'form-control',}),
+    )
 
     class Meta:
         model = MyUser
         fields = ("username", "email")
+
+        # MyUserInfo, Dog
+        # "birth_date", "gender", "dog_bread", "dog_gender", "size"
 
     def clean_password2(self):
         # Check that the two password entries match
@@ -68,7 +104,11 @@ class UserChangeForm(forms.ModelForm):
 
     class Meta:
         model = MyUser
-        fields = ("username", "email", "password", "is_active", "is_admin")
+        fields = (
+            "username",
+            "email",
+            #"password", "is_active", "is_admin"
+        )
 
     def clean_password(self):
         # Regardless of what the user provides, return the initial value.

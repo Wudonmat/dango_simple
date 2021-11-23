@@ -3,7 +3,7 @@ from django.contrib.auth.models import BaseUserManager, AbstractBaseUser, Abstra
 from django.core.validators import EmailValidator
 from django.db import models
 from django.utils import timezone
-
+from .choice import *
 
 class MyUserManager(BaseUserManager):
     def _create_user(self, username, email, password):
@@ -31,10 +31,12 @@ class MyUserManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
-
-class MyUser(AbstractBaseUser):
+# models.Model 일반적인 모델 정보로 바꾸기, 1:1 매칭
+class MyUser(AbstractBaseUser): #기존 모델
+#class MyUser(models.Model):
     email = models.EmailField(unique=True,validators=[EmailValidator()])
     username = models.CharField(unique=True,max_length=30)
+
     is_active = models.BooleanField(
         "active",
         default=True,
@@ -77,3 +79,22 @@ class MyUser(AbstractBaseUser):
     class Meta:
         verbose_name = "User"
         verbose_name_plural = "Users"
+
+
+class MyUserInfo(models.Model):
+    username = models.ForeignKey(MyUser, on_delete=models.CASCADE, null=True)
+    birth_date = models.DateField(verbose_name="Birth Day",)
+    gender = models.CharField(choices=GENDER_CHOICES, max_length=18, verbose_name="Gender", null=False)
+    area = models.CharField(max_length=30, verbose_name="Area", null=False)
+
+class Dog(models.Model):
+    username = models.ForeignKey(MyUser, on_delete=models.CASCADE, null=True)
+    dog_breed = models.CharField(choices=BREED_CHOICES, max_length=18, verbose_name="Dog Breed", null=False)
+    dog_gender = models.CharField(choices=DOG_GENDER_CHOICES, max_length=18, verbose_name="Dog Gender", null=False)
+    size = models.CharField(choices=SIZE_CHOICES, max_length=10, verbose_name="Dog Size", null=False)
+
+class Area(models.Model):
+    # username = models.ForeignKey(MyUser, on_delete=models.CASCADE, null=True)
+    sido = models.CharField(verbose_name="시도", max_length=10)
+    sigungu = models.CharField(verbose_name="시군구", max_length=10)
+    bname = models.CharField(verbose_name="동이름", max_length=10)
