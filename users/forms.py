@@ -6,7 +6,7 @@ from .models import *
 from .choice import *
 
 
-class UserCreationForm(forms.ModelForm):
+class UserCreationForm_1(forms.ModelForm):
     """A form for creating new users. Includes all the required
     fields, plus a repeated password."""
     username = forms.CharField(
@@ -36,6 +36,31 @@ class UserCreationForm(forms.ModelForm):
         min_length=6,
         help_text="띄어쓰기 없는 영문,숫자로만 6~20자",
     )
+
+    class Meta:
+        model = MyUser
+        fields = ("username", "email")
+
+    def clean_password2(self):
+        # Check that the two password entries match
+        password1 = self.cleaned_data.get("password1")
+        password2 = self.cleaned_data.get("password2")
+        if password1 and password2 and password1 != password2:
+            raise forms.ValidationError("비밀번호가 일치하지 않습니다.")
+        return password2
+
+    def save(self, commit=True):
+        # Save the provided password in hashed format
+        user = super().save(commit=False)
+        user.set_password(self.cleaned_data["password1"])
+        if commit:
+            user.save()
+        return user
+
+class UserInfoCreationForm(forms.ModelForm):
+    """A form for creating new users. Includes all the required
+    fields, plus a repeated password."""
+
     birth_date = forms.CharField(
         label="생년월일",
         widget=forms.DateInput,
@@ -50,6 +75,33 @@ class UserCreationForm(forms.ModelForm):
             ]
         )
     )
+    area = forms.CharField(
+        label="성별",
+        widget=forms.Select(
+            choices=[
+                (True, '남자'),
+                (False, '여자'),
+            ]
+        )
+    )
+
+    class Meta:
+        model = MyUserInfo
+        fields = ("birth_date", "gender", "area")
+
+
+class DogCreationForm(forms.ModelForm):
+    """A form for creating new users. Includes all the required
+    fields, plus a repeated password."""
+
+    dog_name = forms.CharField(
+        widget=forms.TextInput(
+            attrs={'class': 'form-control', }),
+        error_messages={'required': '아이디을 입력해주세요.'},
+        max_length=17,
+        label="강아지 이름"
+    )
+
     dog_bread = forms.ChoiceField(choices=BREED_CHOICES,
         label="견종",
         widget=forms.Select(
@@ -71,28 +123,8 @@ class UserCreationForm(forms.ModelForm):
     )
 
     class Meta:
-        model = MyUser
-        fields = ("username", "email")
-
-        # MyUserInfo, Dog
-        # "birth_date", "gender", "dog_bread", "dog_gender", "size"
-
-    def clean_password2(self):
-        # Check that the two password entries match
-        password1 = self.cleaned_data.get("password1")
-        password2 = self.cleaned_data.get("password2")
-        if password1 and password2 and password1 != password2:
-            raise forms.ValidationError("비밀번호가 일치하지 않습니다.")
-        return password2
-
-    def save(self, commit=True):
-        # Save the provided password in hashed format
-        user = super().save(commit=False)
-        user.set_password(self.cleaned_data["password1"])
-        if commit:
-            user.save()
-        return user
-
+        model = Dog
+        fields = ("dog_name", "dog_bread", "dog_gender", "size")
 
 class UserChangeForm(forms.ModelForm):
     """A form for updating users. Includes all the fields on

@@ -30,8 +30,8 @@ def register(request):
 
 @login_required
 def profile(request):
-
-    post_list = Post.objects.all().order_by("-pk")
+    current_user = request.user
+    post_list = Post.objects.filter(author=current_user.id).order_by("-pk")
     context = {
         "post_list": post_list,
         "title": "Profile",

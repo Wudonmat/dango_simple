@@ -89,6 +89,7 @@ class MyUserInfo(models.Model):
 
 class Dog(models.Model):
     username = models.ForeignKey(MyUser, on_delete=models.CASCADE, null=True)
+    dog_name = models.CharField(verbose_name="Dog Name", max_length=18,)
     dog_breed = models.CharField(choices=BREED_CHOICES, max_length=18, verbose_name="Dog Breed", null=False)
     dog_gender = models.CharField(choices=DOG_GENDER_CHOICES, max_length=18, verbose_name="Dog Gender", null=False)
     size = models.CharField(choices=SIZE_CHOICES, max_length=10, verbose_name="Dog Size", null=False)
