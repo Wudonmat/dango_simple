@@ -4,42 +4,27 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.forms import UserChangeForm
 from .models import *
 from .choice import *
+from django.forms.widgets import DateInput
 
 
-class UserCreationForm_1(forms.ModelForm):
+class UserCreationForm(forms.ModelForm):
     """A form for creating new users. Includes all the required
     fields, plus a repeated password."""
-    username = forms.CharField(
-        widget=forms.TextInput(
-            attrs={'class': 'form-control', }),
-        error_messages={'required': '아이디을 입력해주세요.'},
-        max_length=17,
-        label='이름'
-    )
-
-    email = forms.CharField(
-        widget=forms.EmailInput(
-            attrs={'class': 'form-control', }),
-        error_messages={'required': '아이디을 입력해주세요.'},
-        label='이메일'
-    )
 
     password1 = forms.CharField(
         label="비밀번호",
         widget=forms.PasswordInput,
-        help_text="띄어쓰기 없는 영문,숫자로만 6~20자",
         min_length=6,
     )
     password2 = forms.CharField(
         label="비밀번호 확인",
         widget=forms.PasswordInput,
         min_length=6,
-        help_text="띄어쓰기 없는 영문,숫자로만 6~20자",
     )
 
     class Meta:
         model = MyUser
-        fields = ("username", "email")
+        fields = ("email", "username", "address")
 
     def clean_password2(self):
         # Check that the two password entries match
@@ -57,74 +42,6 @@ class UserCreationForm_1(forms.ModelForm):
             user.save()
         return user
 
-class UserInfoCreationForm(forms.ModelForm):
-    """A form for creating new users. Includes all the required
-    fields, plus a repeated password."""
-
-    birth_date = forms.CharField(
-        label="생년월일",
-        widget=forms.DateInput,
-        min_length=10,
-    )
-    gender = forms.CharField(
-        label="성별",
-        widget=forms.Select(
-            choices=[
-                (True, '남자'),
-                (False, '여자'),
-            ]
-        )
-    )
-    area = forms.CharField(
-        label="성별",
-        widget=forms.Select(
-            choices=[
-                (True, '남자'),
-                (False, '여자'),
-            ]
-        )
-    )
-
-    class Meta:
-        model = MyUserInfo
-        fields = ("birth_date", "gender", "area")
-
-
-class DogCreationForm(forms.ModelForm):
-    """A form for creating new users. Includes all the required
-    fields, plus a repeated password."""
-
-    dog_name = forms.CharField(
-        widget=forms.TextInput(
-            attrs={'class': 'form-control', }),
-        error_messages={'required': '아이디을 입력해주세요.'},
-        max_length=17,
-        label="강아지 이름"
-    )
-
-    dog_bread = forms.ChoiceField(choices=BREED_CHOICES,
-        label="견종",
-        widget=forms.Select(
-            attrs={'class': 'form-control',}),
-    )
-    dog_gender = forms.BooleanField(
-        label="강아지 성별",
-        widget=forms.Select(
-            choices=[
-                (True, '수컷'),
-                (False, '암컷'),
-            ]
-        )
-    )
-    size = forms.ChoiceField(choices=SIZE_CHOICES,
-        label="사이즈",
-        widget=forms.Select(
-            attrs={'class': 'form-control',}),
-    )
-
-    class Meta:
-        model = Dog
-        fields = ("dog_name", "dog_bread", "dog_gender", "size")
 
 class UserChangeForm(forms.ModelForm):
     """A form for updating users. Includes all the fields on
@@ -137,9 +54,9 @@ class UserChangeForm(forms.ModelForm):
     class Meta:
         model = MyUser
         fields = (
-            "username",
             "email",
-            #"password", "is_active", "is_admin"
+            "username",
+            "address",
         )
 
     def clean_password(self):
@@ -179,28 +96,47 @@ class LoginForm(forms.Form):
             if not check_password(password, user.password):
                 self.add_error('password', '비밀번호가 틀렸습니다.')
 
-# class CsRegisterForm(UserCreationForm):
-#     def __init__(self, *args, **kwargs):
-#         super(CsRegisterForm, self).__init__(*args, **kwargs)
-#
-#         self.fields['user_id'].label = '아이디'
-#         self.fields['user_id'].widget.attrs.update({
-#             'class': 'form-control',
-#             'autofocus': False
-#         })
-#         self.fields['password1'].label = '비밀번호'
-#         self.fields['password1'].widget.attrs.update({
-#             'class': 'form-control',
-#         })
-#
-#     class Meta:
-#         model = MyUser
-#         fields = ['user_id', 'password1', 'password2', 'email', 'name', 'hp', 'grade', 'student_id', 'circles']
-#
-#     def save(self, commit=True):
-#         user = super(CsRegisterForm, self).save(commit=False)
-#         user.level = '2'
-#         user.department = '컴퓨터공학부'
-#         user.save()
-#
-#         return user
+
+class DogCreationForm(forms.ModelForm):
+    """A form for creating new users. Includes all the required
+    fields, plus a repeated password."""
+
+    dog_name = forms.CharField(
+        widget=forms.TextInput(
+            attrs={'class': 'form-control', }),
+        error_messages={'required': '아이디을 입력해주세요.'},
+        max_length=17,
+        label="강아지 이름"
+    )
+
+    dog_bread = forms.ChoiceField(choices=BREED_CHOICES,
+        label="견종",
+        widget=forms.Select(
+            attrs={'class': 'form-control',}),
+    )
+    dog_gender = forms.BooleanField(
+        label="강아지 성별",
+        widget=forms.Select(
+            choices=[
+                (True, '수컷'),
+                (False, '암컷'),
+            ]
+        )
+    )
+    size = forms.ChoiceField(choices=SIZE_CHOICES,
+        label="사이즈",
+        widget=forms.Select(
+            attrs={'class': 'form-control',}),
+    )
+
+    class Meta:
+        model = Dog
+        fields = ("dog_name", "dog_bread", "dog_gender", "size")
+
+    def save(self, commit=True):
+        # Save the provided password in hashed format
+        dog = super(DogCreationForm, self).save(commit=False)
+        if commit:
+            dog.save()
+
+        return dog

@@ -9,7 +9,7 @@ from django.core.exceptions import PermissionDenied
 from django.views.generic import CreateView
 
 
-from .forms import UserCreationForm
+from .forms import *
 from blog.models import Post
 
 # Create your views here.
@@ -21,7 +21,7 @@ def register(request):
         form = UserCreationForm(request.POST)
         if form.is_valid():
             user = form.save()
-            messages.success(request, "회원가입이 완료되었습니다.")
+            messages.success(request, "정보가 저장되었습니다.")
             return redirect(reverse("users:login"))
     return render(
         request, "users/register.html", {"title": "Create Account", "form": form}

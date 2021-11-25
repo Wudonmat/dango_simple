@@ -22,6 +22,8 @@
         {% block head %}
         {% endblock head %}
     </head>
+
+    {% block body %}
     <body>
         <div class="container-fluid">
             {% if messages %}
@@ -47,4 +49,6 @@
         {% block scripts %}
         {% endblock scripts %}
     </body>
+
+    {% endblock body %}
 </html>

@@ -3,37 +3,32 @@ from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import Group
 
 from .forms import UserCreationForm, UserChangeForm
-from .models import MyUser, MyUserInfo, Dog, Area
+from .models import MyUser, Dog
 
 
 class MyUserAdmin(UserAdmin):
-    add_form = UserCreationForm
     form = UserChangeForm
-    list_display = ("email", "username", "is_admin",)
+    add_form = UserCreationForm
+
+    list_display = ("email", "username", "address", "is_admin",)
     list_filter = ("is_admin",)
     fieldsets = (
-        ("User Info", {"fields": ("email", "username", "password",)}),
+        (None, {
+            "fields":("username", "email", "password")
+        }),
+        ("User Info", {"fields": ("address",)}),
         ("Permissions", {"fields": ("is_admin",)}),
     )
+
     add_fieldsets = (
-        (
-            None,
-            {
+        (None, {
                 "classes": ("wide",),
                 "fields": ("email", "username", "password1", "password2", ),
-            },
-        ),
+            },),
     )
     search_fields = ("email",)
     ordering = ("email",)
     filter_horizontal = ()
-
-
-class MyUserInfoAdmin(admin.ModelAdmin):
-    list_display = (
-         "birth_date", "gender",
-        )
-    search_fields = ("gender",)
 
 
 class DogAdmin(admin.ModelAdmin):
@@ -44,6 +39,5 @@ class DogAdmin(admin.ModelAdmin):
 
 
 admin.site.register(MyUser, MyUserAdmin)
-admin.site.register(MyUserInfo, MyUserInfoAdmin)
 admin.site.register(Dog, DogAdmin)
 admin.site.unregister(Group)
