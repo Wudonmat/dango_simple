@@ -131,6 +131,7 @@ class DogCreationForm(forms.ModelForm):
             attrs={'class': 'form-control',}),
     )
 
+
     class Meta:
         model = Dog
         fields = ("dog_name", "dog_age", "dog_bread", "dog_gender", "size")
