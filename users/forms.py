@@ -109,20 +109,22 @@ class DogCreationForm(forms.ModelForm):
         label="강아지 이름"
     )
 
+    dog_age = forms.IntegerField(
+        error_messages={'required': '나이를 입력해주세요.'},
+        label="강아지 나이"
+    )
+
     dog_bread = forms.ChoiceField(choices=BREED_CHOICES,
         label="견종",
         widget=forms.Select(
             attrs={'class': 'form-control',}),
     )
-    dog_gender = forms.BooleanField(
+    dog_gender = forms.ChoiceField(choices=DOG_GENDER_CHOICES,
         label="강아지 성별",
         widget=forms.Select(
-            choices=[
-                (True, '수컷'),
-                (False, '암컷'),
-            ]
-        )
+            attrs={'class': 'form-control', }),
     )
+
     size = forms.ChoiceField(choices=SIZE_CHOICES,
         label="사이즈",
         widget=forms.Select(
@@ -131,7 +133,7 @@ class DogCreationForm(forms.ModelForm):
 
     class Meta:
         model = Dog
-        fields = ("dog_name", "dog_bread", "dog_gender", "size")
+        fields = ("dog_name", "dog_age", "dog_bread", "dog_gender", "size")
 
     def save(self, commit=True):
         # Save the provided password in hashed format

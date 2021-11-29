@@ -1,10 +1,181 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'users/css/theme.css' %}">
     <meta charset="UTF-8">
-    <title>Profile_Update</title>
+    <title>댕고 | 프로필 수정</title>
 </head>
 <body>
 
+    <div class="card">
+  <div class="card-header">
+    <ul class="nav nav-tabs card-header-tabs">
+      <li class="nav-item">
+        <a class="nav-link active" aria-current="true" href="{% url 'users:profile_update' %}">내 정보</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'users:dog_update' %}">강아지 정보</a>
+      </li>
+    </ul>
+  </div>
+      <!-- Container fluid -->
+      <div class="container-fluid px-6 py-4 bg-light">
+        <div class="row">
+          <div class="col-lg-12 col-md-12 col-12">
+            <!-- Page header -->
+            <div>
+              <div class="border-bottom pb-4 mb-4 d-flex align-items-center
+                  justify-content-between">
+                <div class="mb-2 mb-lg-0">
+                  <h3 class="mb-0 fw-bold">내 정보</h3>
+                </div>
+                <div>
+                  <a href="{% url 'users:profile' %}" class="btn btn-primary">뒤로가기</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row mb-8">
+          <div class="col-xl-3 col-lg-4 col-md-12 col-12">
+            <div class="mb-4 mb-lg-0">
+              <h4 class="mb-1">회원 정보 수정</h4>
+              <p class="mb-0 fs-5 text-muted">프로필 정보를 수정합니다.</p>
+            </div>
+
+          </div>
+
+          <div class="col-xl-9 col-lg-8 col-md-12 col-12">
+            <!-- card -->
+            <div class="card">
+              <!-- card body -->
+              <div class="card-body">
+                <div class=" mb-6">
+                  <h4 class="mb-1">회원 정보 수정</h4>
+
+                </div>
+                <div class="row align-items-center mb-8">
+                  <div class="col-md-3 mb-3 mb-md-0">
+                    <h5 class="mb-0">프로필 사진</h5>
+                  </div>
+                  <div class="col-md-9">
+                    <div class="d-flex align-items-center">
+                      <div class="me-3">
+                        <img src="{{ avatar }}" class="rounded-circle avatar avatar-lg" alt="">
+                      </div>
+                      <div>
+                        <button type="submit" class="btn btn-outline-white
+                            me-1">변경</button>
+                        <button type="submit" class="btn btn-outline-white">제거</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- col -->
+                <div class="row mb-8">
+                  <div class="col-md-3 mb-3 mb-md-0">
+                    <!-- heading -->
+                    <h5 class="mb-0">커버 사진</h5>
+                  </div>
+                  <div class="col-md-9">
+                    <!-- dropzone input -->
+                    <div>
+                      <form action="#" class="dropzone mb-3 border-dashed">
+                        <div class="fallback">
+                          <input name="file" type="file" multiple />
+                        </div>
+                      </form>
+                      <button type="submit" class="btn btn-outline-white">변경</button>
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  <!-- border -->
+                  <div class="mb-6">
+                    <h4 class="mb-1">기본 정보</h4>
+                  </div>
+                    <form action="{% url 'users:profile_update' %}" method="post" class="mt-5 ">
+                    {% csrf_token %}
+                    <!-- row -->
+
+                    <div class="mb-3 row">
+                      <label for="username" class="col-sm-4 col-form-label
+                          form-label">이름</label>
+                      <div class="col-md-8 col-12">
+                        <input type="text" class="form-control" placeholder="닉네임" id="lastName" required>
+                      </div>
+                    </div>
+
+                    <!-- row -->
+                    <div class="mb-3 row">
+                      <label for="email" class="col-sm-4 col-form-label
+                          form-label">이메일</label>
+                      <div class="col-md-8 col-12">
+                        <input type="email" class="form-control" placeholder="example@dango.com" id="email" required>
+                      </div>
+                    </div>
+                    <!-- row -->
+                    <div class="mb-3 row">
+                      <label for="phone" class="col-sm-4 col-form-label
+                          form-label">전화번호 <span class="text-muted">(Optional)</span></label>
+                      <div class="col-md-8 col-12">
+                        <input type="text" class="form-control" placeholder="'-'을 제외하고 입력하세요." id="phone" required>
+                      </div>
+                    </div>
+                    <!-- row -->
+                    <div class="mb-3 row">
+                      <label for="location" class="col-sm-4 col-form-label
+                          form-label">주소</label>
+
+                      <div class="col-md-8 col-12">
+                        <input type="text" class="form-control" placeholder="OO동" id="addressLine" required>
+                      </div>
+                    </div>
+                    <!-- row -->
+
+                      <div class="offset-md-4 col-md-8 mt-4">
+                        <button type="submit" class="btn btn-primary"> 프로필 저장 </button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+
+          </div>
+          <div class="row mb-8">
+          <div class="col-xl-3 col-lg-4 col-md-12 col-12">
+            <div class="mb-4 mb-lg-0">
+              <h4 class="mb-1">회원 탈퇴</h4>
+              <p class="mb-0 fs-5 text-muted">모든 정보를 삭제합니다.</p>
+            </div>
+
+          </div>
+
+          <div class="col-xl-9 col-lg-8 col-md-12 col-12">
+            <!-- card -->
+
+            <div class="card mb-6">
+              <!-- card body -->
+              <div class="card-body">
+                <div class="mb-6">
+                  <h4 class="mb-1">회원 탈퇴</h4>
+
+                </div>
+                <div>
+                  <!-- text -->
+                  <p>회원님의 포스팅, 리뷰, 메세지, 친구, 산책 정보 등의 모든 정보를 삭제합니다. 모든 사용자가 사용자 이름을 사용할 수 있도록 허용합니다.</p>
+                  <a href="#" class="btn btn-danger">계정 삭제하기</a>
+                  <p class="small mb-0 mt-3">문의사항이 있다면 <a href="#">support@dango.life</a> 으로 언제든지 문의해 주세요.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        </div>
+      </div>
 </body>
 </html>

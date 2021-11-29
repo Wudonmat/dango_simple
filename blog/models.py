@@ -5,6 +5,7 @@ from django.core.validators import EmailValidator
 from django.db import models
 from django.utils import timezone
 from users.models import MyUser
+from datetime import datetime, timedelta
 
 # class모델을 정의함
 # 모델의 이름은 Post
@@ -38,3 +39,33 @@ class Post(models.Model):
     def __str__(self):
         return self.title
 
+
+
+class DogReview(models.Model):
+    author = models.ForeignKey(MyUser, on_delete=models.CASCADE)
+    review = models.TextField(null=False)
+    created_date = models.DateTimeField(default=timezone.now)
+    published_date = models.DateTimeField(blank=True, null=True)
+
+    @property
+    def created_string(self):
+        time = datetime.now(tz=timezone.utc) - self.created_date
+
+        if time < timedelta(minutes=1):
+            return '방금 전'
+        elif time < timedelta(hours=1):
+            return str(int(time.seconds / 60)) + '분 전'
+        elif time < timedelta(days=1):
+            return str(int(time.seconds / 3600)) + '시간 전'
+        elif time < timedelta(days=7):
+            time = datetime.now(tz=timezone.utc).date() - self.created_date.date()
+            return str(time.days) + '일 전'
+        else:
+            return False
+
+    def publish(self):
+        self.published_date = timezone.now()
+        self.save()
+
+    def __str__(self):
+        return self.review

@@ -1,10 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'users/css/theme.css' %}">
     <meta charset="UTF-8">
     <title>write</title>
 </head>
 <body>
+<div class="row justify-content-center">
+<div class="col-xl-10 col-md-10 col-10 mt-6 mb-6">
+    <!-- card -->
+                <div class="card mb-4">
+                  <!-- card body -->
+                  <div class="card-body">
+                    <div class="d-flex justify-content-between mb-5
+                        align-items-center">
     <form action="/blog/post-create/" method="post" id="blog-create" enctype="multipart/form-data">
         {% csrf_token %}
         Title: <input type="text" name="title"/>
@@ -14,5 +24,10 @@
         <input type="submit" />
     </form>
     <textarea name="text" form="blog-create">Enter Content</textarea>
+                    </div>
+                  </div>
+                </div>
+</div>
+</div>
 </body>
 </html>

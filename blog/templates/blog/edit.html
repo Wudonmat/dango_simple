@@ -1,19 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'users/css/theme.css' %}">
     <meta charset="UTF-8">
-    <title>edit</title>
+    <title>Title</title>
 </head>
 <body>
-    <form action="/blog/post-edit/{{ post.id }}/" method="post" id="blog-edit" enctype="multipart/form-data">
-<!--    <form action="{% url 'blog:edit' post.id %}" method="post" id="blog-edit" enctype="multipart/form-data">-->
-        {% csrf_token %}
-        Title: <input type="text" name="title" value="{{ post.title }}"/>
-        <div>
-            Head Image: <input type="file" id="image" name="image" form="blog-edit"/>
+<form action="/blog/post-edit/{{ post.id }}/" method="post" id="blog-edit" enctype="multipart/form-data">
+    {% csrf_token %}
+
+<div class="row justify-content-center">
+<div class="col-xl-10 col-md-10 col-10 mt-6 mb-6">
+                <!-- card -->
+                <div class="card mb-4">
+                  <!-- card body -->
+                  <div class="card-body">
+                    <div class="d-flex justify-content-between mb-5
+                        align-items-center">
+                      <!-- avatar -->
+                      <div class="d-flex align-items-center">
+                        <div>
+                          <img src="{{ user.avatar }}" alt="" class="avatar avatar-md rounded-circle">
+                        </div>
+                        <div class="ms-3">
+                          <h5 class="mb-0 fw-bold">{{ post.author.username }}</h5>
+                          <p class="mb-0">{{ post.created_date }}</p>
+                        </div>
+                      </div>
+                    <div class="mb-4">
+                      <!-- text -->
+                        <input type="text" name="title" value="{{ post.title }}"/>
+        <div>Head Image: <input type="file" id="image" name="image" form="blog-edit"/>
         </div>
         <input type="submit" />
     </form>
     <textarea name="text" form="blog-edit">{{ post.text }}</textarea>
+                        {% if post.head_image %}
+                        <img src="{{ post.head_image.url }}" class="d-block w-100 rounded" alt="Image">
+                        {% else %}
+                        <img src="{% static 'blog/img/noimg.jpg' %}" class="gallery-image" alt="No image">
+                        {% endif %}
+                    </div>
+                  </div>
+                </div>
+              </div>
+</div>
 </body>
 </html>

@@ -1,17 +1,82 @@
-{% extends 'main/layout.html' %}
-{% load crispy_forms_tags %}
-{% block head %}
-{% endblock head %}
-{% block content %}
-    <form action="{% url 'users:login' %}" method="post" class="mt-5 ">
-    {% csrf_token %}
-        <fieldset>
-            <legend>댕고 로그인</legend>
-            <div id="div_id_username" class="form-group"> <label for="id_username" class=" requiredField">
-                이메일<span class="asteriskField">*</span> </label> <div class=""> <input type="text" name="username" autofocus="" autocapitalize="none" autocomplete="username" maxlength="254" class="textinput textInput form-control" required="" id="id_username"> </div> </div> <div id="div_id_password" class="form-group"> <label for="id_password" class=" requiredField">
-                비밀번호<span class="asteriskField">*</span> </label> <div class=""> <input type="password" name="password" autocomplete="current-password" class="textinput textInput form-control" required="" id="id_password"> </div> </div>
-            <p class="">아직 회원이 아니신가요? <a href="{% url 'users:register' %}">회원가입</a></p>
-            <button type="submit" class="btn btn-primary">로그인</button>
-        </fieldset>
-    </form>
-{% endblock content %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% load static %}
+    <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Favicon icon-->
+  <link rel="shortcut icon" type="image/x-icon" href="@@webRoot/assets/images/favicon/favicon.ico">
+
+  <!-- Libs CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.css">
+
+  <!-- Theme CSS -->
+  <!-- build:css @@webRoot/assets/css/theme.min.css -->
+
+    <link rel="stylesheet" href="{% static 'users/css/theme.css' %}">
+  <!-- endbuild -->
+  <title>댕고 | 로그인</title>
+</head>
+
+<body>
+  <!-- container -->
+  <div class="container d-flex flex-column">
+    <div class="row align-items-center justify-content-center g-0
+        min-vh-100">
+      <div class="col-12 col-md-8 col-lg-6 col-xxl-4 py-8 py-xl-0">
+        <!-- Card -->
+        <div class="card smooth-shadow-md">
+          <!-- Card body -->
+          <div class="card-body p-6">
+            <div class="mb-4">
+              <p class="mb-6" style="font-family: 'RixYeoljeongdo_Regular'; font-size: 20px; color: black;">댕고</p>
+            </div>
+            <!-- Form -->
+            <form action="{% url 'users:login' %}" method="post">
+                {% csrf_token %}
+              <!-- Username -->
+              <div id="div_id_username" class="mb-3">
+                <label for="id_username" class=" requiredField">이메일</label>
+                <input type="text" name="username" autofocus="" autocapitalize="none" autocomplete="username" maxlength="254" class="textinput textInput form-control" required="" id="id_username" placeholder="Email address here">
+              </div>
+              <!-- Password -->
+              <div class="mb-3">
+                <label for="id_password" class=" requiredField">비밀번호</label>
+                <input type="password" name="password" autocomplete="current-password" class="textinput textInput form-control" required="" id="id_password">
+              </div>
+              <!-- Checkbox -->
+              <div class="d-lg-flex justify-content-between align-items-center
+                  mb-4">
+                <div class="form-check custom-checkbox">
+                  <input type="checkbox" class="form-check-input" id="rememberme">
+                  <label class="form-check-label" for="rememberme">로그인 상태 유지</label>
+                </div>
+
+              </div>
+              <div>
+                <!-- Button -->
+                <div class="d-grid" style="font-family: 'RixYeoljeongdo_Regular';">
+                  <button type="submit" class="btn btn-primary">댕고 로그인</button>
+                </div>
+
+                <div class="d-md-flex justify-content-between mt-4">
+                  <div class="mb-2 mb-md-0">
+                    <a href="{% url 'users:register' %}" class="fs-5">회원가입</a>
+                  </div>
+                  <div>
+                    <a href="forget-password.html" class="text-inherit fs-5">비밀번호 찾기</a>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Scripts -->
+</body>
+</html>

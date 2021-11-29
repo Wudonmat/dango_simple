@@ -1,10 +1,17 @@
 {% extends 'main/layout.html' %}
+{% block title %}댕고 | 프로필{% endblock title %}
 {% block head %}
 	{% load static %}
-    <link rel="stylesheet" href="{% static 'users/css/profile.css' %}">
+    <link rel="stylesheet" href="{% static 'users/css/theme.css' %}">
 {% endblock head %}
 {% block content %}
     <nav class="nav nav-tabs justify-content-around">
+        <a class="nav-item nav-link h3" href="{% url 'dog:list' %}">
+            <span class="d-none d-sm-inline">동네 견주</span>
+            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-binoculars" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" d="M3 2.5A1.5 1.5 0 0 1 4.5 1h1A1.5 1.5 0 0 1 7 2.5V5h2V2.5A1.5 1.5 0 0 1 10.5 1h1A1.5 1.5 0 0 1 13 2.5v2.382a.5.5 0 0 0 .276.447l.895.447A1.5 1.5 0 0 1 15 7.118V14.5a1.5 1.5 0 0 1-1.5 1.5h-3A1.5 1.5 0 0 1 9 14.5v-3a.5.5 0 0 1 .146-.354l.854-.853V9.5a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5v.793l.854.853A.5.5 0 0 1 7 11.5v3A1.5 1.5 0 0 1 5.5 16h-3A1.5 1.5 0 0 1 1 14.5V7.118a1.5 1.5 0 0 1 .83-1.342l.894-.447A.5.5 0 0 0 3 4.882V2.5zM4.5 2a.5.5 0 0 0-.5.5V3h2v-.5a.5.5 0 0 0-.5-.5h-1zM6 4H4v.882a1.5 1.5 0 0 1-.83 1.342l-.894.447A.5.5 0 0 0 2 7.118V13h4v-1.293l-.854-.853A.5.5 0 0 1 5 10.5v-1A1.5 1.5 0 0 1 6.5 8h3A1.5 1.5 0 0 1 11 9.5v1a.5.5 0 0 1-.146.354l-.854.853V13h4V7.118a.5.5 0 0 0-.276-.447l-.895-.447A1.5 1.5 0 0 1 12 4.882V4h-2v1.5a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5V4zm4-1h2v-.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5V3zm4 11h-4v.5a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5V14zm-8 0H2v.5a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5V14z"/>
+            </svg>
+        </a>
         <a class="nav-item nav-link h3" href="{% url 'chat:conversations' %}">
             <span class="d-none d-sm-inline">메세지</span>
             <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-chat-right-text" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -19,7 +26,7 @@
                 <path fill-rule="evenodd" d="M13 7.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0v-2z"/>
             </svg>
         </a>
-        <a class="nav-item nav-link active h3" href="{% url 'users:profile' %}" >
+        <a class="nav-item nav-link h3 active" href="{% url 'users:profile' %}" >
             <span class="d-none d-sm-inline">프로필</span>
             <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-person-circle" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                 <path d="M13.468 12.37C12.758 11.226 11.195 10 8 10s-4.757 1.225-5.468 2.37A6.987 6.987 0 0 0 8 15a6.987 6.987 0 0 0 5.468-2.63z"/>
@@ -28,66 +35,145 @@
             </svg>
         </a>
     </nav>
-
-<div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column" style="background-color: white;">
-
-<!-- 프로필 페이지 -->
-<header>
-	<div class="container">
-		<div class="profile" style="border-bottom: solid 1px lightgrey;">
-			<div class="profile-image">
-				<img src="{{ avatar }}" alt="User Profile" class="img-fluid mb-3">
-			</div>
-			<div class="profile-user-settings">
-				<a class="profile-user-name">{{ user.username }}</a>&nbsp&nbsp&nbsp<a>가입일 : {{ user.date_joined|date }}</a>
-				<a class="btn profile-edit-btn bg-black text-black" href="" role="button">프로필 수정</a>
-                <a class="btn profile-edit-btn btn-danger" href="{% url 'users:logout' %}" role="button">로그아웃</a>
-			</div>
-			<div class="profile-stats" style="margin: 10px;">
-				<ul>
-					<li>산책 횟수 <span class="profile-stat-count">164</span></li>
-					<li>매너 점수 <span class="profile-stat-count">4.87</span></li>
-					<li>총 산책 시간 <span class="profile-stat-count">206</span></li>
-				</ul>
-
-			</div>
-
-			<div class="profile-bio">
-				<p><span class="profile-real-name"></span> <br> 강아지 만지면 뭅니다. 만지지 마세요. 📷✈️🏕️</p>
-            </div>
-        <div>
-		<!-- End of profile section -->
-
-	</div>
-	<!-- End of container -->
-</header>
-    <div class="container">
-        <div class="row justify-content-end" style="display: grid; grid-template-columns: 0.5fr 2fr; grid-template-rows: repeat(1, auto); grid-column-gap: 3rem; padding: 1rem 0;">
-        <a class="btn profile-edit-btn btn-danger" href="{% url 'blog:create' %}" role="button">글쓰기</a>
-        </div>
-    </div>
-<main>
-
-        <div class="container">
-            <div class="gallery">
-                {% for post in post_list %}
-                <a href="/blog/post/{{ post.id }}/">
-                <div class="gallery-item" tabindex="0">
-                    {% if post.head_image %}
-                    <img src="{{ post.head_image.url }}" class="gallery-image" alt="Image">
-                    {% else %}
-                    <img src="{% static 'blog/img/noimg.jpg' %}" class="gallery-image" alt="No image">
-                    {% endif %}
-                    <div class="gallery-item-info">
-                        <ul>
-                            <li class="gallery-item-likes"><span class="visually-hidden">Likes:</span><i class="fa-heart" aria-hidden="true"></i> 56</li>
-                            <li class="gallery-item-comments"><span class="visually-hidden">Comments:</span><i class="fa-comment" aria-hidden="true"></i> 2</li>
-                        </ul>
+        <!-- Container fluid -->
+        <div class="container-fluid px-6 py-4">
+          <div class="row align-items-center">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-12">
+              <!-- Bg -->
+              <div class="pt-20 rounded-top" style="background:
+                  url({% static 'users/img/profile-cover.jpg' %}) no-repeat;
+                  background-size: cover;">
+              </div>
+              <div class="bg-white rounded-bottom smooth-shadow-sm ">
+                <div class="d-flex align-items-center justify-content-between
+                    pt-4 pb-6 px-4">
+                  <div class="d-flex align-items-center">
+                    <!-- avatar -->
+                    <div class="avatar-xxl avatar-indicators avatar-online me-2
+                        position-relative d-flex justify-content-end
+                        align-items-end mt-n10">
+                      <img src="{{ user.avatar }}" class="avatar-xxl
+                          rounded-circle border border-4 border-white-color-40" alt="">
+                      <a href="#!" class="position-absolute top-0 right-0 me-2" data-bs-toggle="tooltip" data-placement="top" title="" data-original-title="Verified">
+                        <img src="{% static 'users/img/checked-mark.svg' %}" alt="" height="30" width="30">
+                      </a>
                     </div>
+                    <!-- text -->
+                    <div class="lh-1">
+                      <h2 class="mb-0">{{ user.username }}
+                        <a href="#!" class="text-decoration-none" data-bs-toggle="tooltip" data-placement="top" title="" data-original-title="Beginner">
+
+                        </a>
+                      </h2>
+                      <p class="mb-0 d-block">@dango.life</p>
+                    </div>
+                  </div>
+                  <div><a href="{% url 'blog:create' %}" class="btn btn-outline-danger btn-sm d-block mb-1">포스팅</a>
+                    <a href="{% url 'users:profile_update' %}" class="btn btn-outline-primary btn-sm d-block">프로필 수정</a>
+                  </div>
                 </div>
-                </a>
-                {% endfor %}
+              </div>
             </div>
+          </div>
+          <!-- content -->
+          <div class="py-6">
+            <!-- row -->
+            <div class="row">
+              <div class="col-12 mb-6">
+                <!-- card -->
+                <div class="card">
+                  <!-- card body -->
+                  <div class="card-body">
+                    <!-- card title -->
+                    <h4 class="card-title mb-4">About Me</h4>
+                    <span class="text-uppercase fw-medium text-dark
+                        fs-5 ls-2">소개</span>
+                    <!-- text -->
+                    <p class="mt-2 mb-6">{{ userinfo.bio }}</p>
+                    <!-- row -->
+                    <div class="row">
+                      <div class="col-12 mb-5">
+                        <!-- text -->
+                        <h6 class="text-uppercase fs-5 ls-2">강아지 정보
+                        </h6>
+                        <p class="mb-0">{{ dog.dog_name }}, {{ dog.dog_breed }}, {{ dog.dog_age }}살</p>
+                      </div>
+                      <div class="col-6">
+                        <h6 class="text-uppercase fs-5 ls-2">이메일 </h6>
+                        <p class="mb-0">{{ user.email }}</p>
+                      </div>
+                      <div class="col-6">
+                        <h6 class="text-uppercase fs-5 ls-2">활동 지역
+                        </h6>
+                        <p class="mb-0">{{ user.address }}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12 mb-6">
+                <!-- card -->
+                <div class="card">
+                  <!-- card body -->
+                  <div class="card-body">
+                    <!-- card title -->
+                    <h4 class="card-title mb-4">산책 리뷰</h4>
+                    {% if review_list %}
+                    {% for review in review_list %}
+                    <div class="d-flex mb-5">
+                      <!-- img -->
+                      <div>
+                        <img src="{{ review.author.avatar }}" class="rounded-circle avatar-md" alt="">
+                      </div>
+                      <!-- content -->
+                      <div class="ms-3 ">
+                        <h5 class="mb-1">{{ review.author.username }}</h5>
+                        <p class="text-muted mb-2">{{ review.review }}
+                        </p>
+                          {% if free.created_string == False %}
+                            <p class="fs-5 mb-0">{{ review.created_date|date:'m월 d일' }}</p>
+                            {% else %}
+                            <p class="fs-5 mb-0">{{ review.created_string }}</p>
+                          {% endif %}
+                      </div>
+                    </div>
+                      {% endfor %}
+                      {% endif %}
+                      <form action="/profile/" method="post" id="review-create" enctype="multipart/form-data">
+                          {% csrf_token %}
+                            <div class="input-group  mb-3">
+                              <input name="review" form="review-create" class="form-control" style="height: 3em;" placeholder="리뷰를 남겨주세요." aria-label="산책 리뷰" aria-describedby="button-addon2">
+                              <button class="btn btn-outline-secondary" style="height: 3em;" type="submit" id="button-addon2">남기기</button>
+                            </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- 포스팅 -->
+              <div class="row row-cols-1 row-cols-md-3 g-4">
+                  {% for post in post_list %}
+
+                  <div class="col">
+                      <a href="/blog/post/{{ post.id }}/">
+                    <div class="card">
+                        <div class="embed-responsive embed-responsive-4by3">
+                        {% if post.head_image %}
+                        <img src="{{ post.head_image.url }}" class="card-img-top embed-responsive-item" alt="Image">
+                        {% else %}
+                        <img src="{% static 'blog/img/noimg.jpg' %}" class="card-img-top embed-responsive-item" alt="No image">
+                        {% endif %}
+                        </div>
+                    <div class="card-body">
+                        <p class="card-title text-center"> {{ post.title }}</p>
+                    </div>
+                  </div>
+                      </a>
+                  </div>
+
+                {% endfor %}
+                </div>
+              </div>
         </div>
-</main>
+      </div>
 {% endblock content %}

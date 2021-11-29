@@ -33,7 +33,7 @@ class MyUserAdmin(UserAdmin):
 
 class DogAdmin(admin.ModelAdmin):
     list_display = (
-         "dog_breed", "size",
+         "dog_name", "dog_age", "dog_breed", "dog_gender", "size",
         )
     search_fields = ("dog_breed", "size",)
 

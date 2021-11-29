@@ -25,6 +25,14 @@
 
   <!-- Template Main CSS File -->
       <link rel="stylesheet" href="{% static 'main/css/style.css' %}">
+    <style>
+        @font-face {
+    font-family: 'RixYeoljeongdo_Regular';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2102-01@1.0/RixYeoljeongdo_Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+    </style>
 {% endblock head %}
 {% block body %}
 <body>
@@ -51,8 +59,9 @@
             <div class="carousel-item active" style="background-image: url({% static 'main/img/hero-carousel/1.gif' %})">
               <div class="carousel-container">
                 <div class="container">
-                  <h2 class="animate__animated animate__fadeInDown">모르는개와 산책하세요</h2>
-                  <p class="animate__animated animate__fadeInUp">우리동네 견주찾기</p>
+                  <h2 class="animate__animated animate__fadeInDown">행복한 강아지를 위한 만남</h2>
+                  <p class="animate__animated animate__fadeInUp" style="font-family: 'RixYeoljeongdo_Regular'; font-size: 80px;">댕고</p>
+                  <p class="animate__animated animate__fadeInUp" style="font-size: 20px;">우리동네 애견인 찾기</p>
                     {% if request.user.is_authenticated %}
                       <div class="text-center mt-5">
                         <a href="{% url 'users:profile' %}" role="button" class="btn btn-outline-primary btn-lg btn-block">내 프로필</a>
@@ -81,12 +90,12 @@
               <div class="footer-content">
                 <div class="footer-head">
                   <div class="footer-logo">
-                    <h2>Team Dango</h2>
+                    <h2>Team <a style="font-family: 'RixYeoljeongdo_Regular';">Dango</a></h2>
                   </div>
 
                   <p>"댕댕이와 함께 사람을 더 가깝게" 팀 댕고는 건전한 산책문화를 만들고 더 많은 산책을 만들어가기 위해 노력합니다. 더 많은 산책을 통해 우리의 거리를 더 안전하게 만들거나, 예비 견주가 견주와 함께 산책에 동행하면서 댕댕이를 키우기 위한 준비를 마쳐가는 세상을 만들기 원합니다.
                   </p>
-                  <div class="footer-icons">
+                  <div class="footer-icons" style="margin-bottom: 20px;">
                     <ul>
                       <li>
                         <a href="#"><i class="bi bi-facebook"></i></a>
@@ -109,10 +118,7 @@
             <div class="col-md-4">
               <div class="footer-content">
                 <div class="footer-head">
-                  <h4>댕고 사업본부</h4>
-                  <p>
-                    서울시 강남구구구 비둘기야 밥먹자
-                  </p>
+                  <a style="font-family: 'RixYeoljeongdo_Regular'; font-size: 20px;">댕고</a> : 서울시 강남구구구 비둘기야 밥먹자<br><br>
                   <div class="footer-contacts">
                     <p><span>Tel:</span> +82 109 0109</p>
                     <p><span>Email:</span> contact@dango.life</p>

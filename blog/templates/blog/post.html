@@ -1,19 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'users/css/theme.css' %}">
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
-<h2>{{ post.title }}</h2>
-{% if post.head_image %}
-    <div style="width: 600px;">
-        <img src="{{ post.head_image.url }}" alt="Post Head Image" style="width: 100%">
-    </div>
-{% endif %}
-<p>{{ post.text }}</p>
+<div class="container d-flex flex-column">
+  <div class="row align-items-center justify-content-center g-0 min-vh-100">
+<div class="row justify-content-center">
+<div class="col-xl-10 col-md-10 col-10 mt-6 mb-6">
+                <!-- card -->
+                <div class="card mb-4">
+                  <!-- card body -->
+                  <div class="card-body">
+                    <div class="d-flex justify-content-between mb-5
+                        align-items-center">
+                      <!-- avatar -->
+                      <div class="d-flex align-items-center">
+                        <div>
+                          <img src="{{ user.avatar }}" alt="" class="avatar avatar-md rounded-circle">
+                        </div>
+                        <div class="ms-3">
+                          <h5 class="mb-0 fw-bold">{{ post.author.username }}</h5>
+                          <p class="mb-0">{{ post.created_date }}</p>
+                        </div>
+                      </div>
+                        <div class="me-3">
+                            <a href="/blog/post-edit/{{ post.id }}/">수정</a>
+                            <a href="/blog/post-delete/{{ post.id }}/">삭제</a></div>
+                    </div>
+                    <div class="mb-4">
+                      <!-- text -->
+                        <h2>{{ post.title }}</h2>
+                      <p>{{ post.text }}</p>
 
-<a href="/blog/post-edit/{{ post.id }}/">edit</a>
-<a href="/blog/post-delete/{{ post.id }}/">delete</a>
+                        {% if post.head_image %}
+                        <img src="{{ post.head_image.url }}" class="d-block w-100 rounded" alt="Image">
+                        {% else %}
+                        <img src="{% static 'blog/img/noimg.jpg' %}" class="gallery-image" alt="No image">
+                        {% endif %}
+                    </div>
+                    <!-- icons -->
+                    <div class="mb-4">
+                      <span class="me-1 me-md-4"><i data-feather="heart"
+                            class="icon-xxs text-muted me-2"></i><span>0 좋아요</span></span>
+                      <span><i data-feather="share-2" class="icon-xxs
+                            text-muted me-2"></i><span>공유하기</span></span>
+                    </div>
+
+                    <nav aria-label="Page navigation example">
+  <ul class="pagination justify-content-center">
+    <li class="page-item disabled">
+      <a class="page-link" href="#" tabindex="-1" aria-disabled="true">맨 앞으로</a>
+    </li>
+    <li class="page-item"><a class="page-link" href="#">1</a></li>
+    <li class="page-item"><a class="page-link" href="#">2</a></li>
+    <li class="page-item"><a class="page-link" href="#">3</a></li>
+    <li class="page-item">
+      <a class="page-link" href="#">다음</a>
+    </li>
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            </div>
+    </div>
+  </div>
 </body>
 </html>

@@ -25,6 +25,7 @@ urlpatterns = [
     path("", include("friendship.urls")),
     path("", include("chat.urls")),
     path("", include("blog.urls")),
+    path("", include("dog.urls")),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 handler404 = "main.views.error404"

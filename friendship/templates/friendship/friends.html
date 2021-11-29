@@ -2,15 +2,18 @@
 {% load static %}
 {% load crispy_forms_tags %}
 {% block head %}
-    <link rel="stylesheet" type="text/css" href="{% static 'friendship/friendship.css' %}">
-    <style>
-        .remove-dash :hover{
-            text-decoration: none;
-        }
-    </style>
+<!--    <link rel="stylesheet" type="text/css" href="{% static 'friendship/friendship.css' %}">-->
+    <link rel="stylesheet" href="{% static 'users/css/theme.css' %}">
 {% endblock head %}
+
 {% block content %}
     <nav class="nav nav-tabs justify-content-around">
+        <a class="nav-item nav-link h3" href="{% url 'dog:list' %}">
+            <span class="d-none d-sm-inline">동네 견주</span>
+            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-binoculars" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" d="M3 2.5A1.5 1.5 0 0 1 4.5 1h1A1.5 1.5 0 0 1 7 2.5V5h2V2.5A1.5 1.5 0 0 1 10.5 1h1A1.5 1.5 0 0 1 13 2.5v2.382a.5.5 0 0 0 .276.447l.895.447A1.5 1.5 0 0 1 15 7.118V14.5a1.5 1.5 0 0 1-1.5 1.5h-3A1.5 1.5 0 0 1 9 14.5v-3a.5.5 0 0 1 .146-.354l.854-.853V9.5a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5v.793l.854.853A.5.5 0 0 1 7 11.5v3A1.5 1.5 0 0 1 5.5 16h-3A1.5 1.5 0 0 1 1 14.5V7.118a1.5 1.5 0 0 1 .83-1.342l.894-.447A.5.5 0 0 0 3 4.882V2.5zM4.5 2a.5.5 0 0 0-.5.5V3h2v-.5a.5.5 0 0 0-.5-.5h-1zM6 4H4v.882a1.5 1.5 0 0 1-.83 1.342l-.894.447A.5.5 0 0 0 2 7.118V13h4v-1.293l-.854-.853A.5.5 0 0 1 5 10.5v-1A1.5 1.5 0 0 1 6.5 8h3A1.5 1.5 0 0 1 11 9.5v1a.5.5 0 0 1-.146.354l-.854.853V13h4V7.118a.5.5 0 0 0-.276-.447l-.895-.447A1.5 1.5 0 0 1 12 4.882V4h-2v1.5a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5V4zm4-1h2v-.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5V3zm4 11h-4v.5a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5V14zm-8 0H2v.5a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5V14z"/>
+            </svg>
+        </a>
         <a class="nav-item nav-link h3" href="{% url 'chat:conversations' %}">
             <span class="d-none d-sm-inline">메세지</span>
             <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-chat-right-text" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -38,9 +41,9 @@
     <div class="card">
         <div class="card-header" id="headingTwo">
             <h2 class="mb-0">
-                <button class="d-flex align-items-center justify-content-between btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                <button class="d-flex align-items-center justify-content-between btn btn-block collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
                 산책 메이트 ({{ friends|length }})
-                <span class="fa-stack fa-2x">
+                <span class="fa-stack">
                 <i class="fas fa-circle fa-stack-2x"></i>
                 <i class="fas fa-plus fa-stack-1x fa-inverse"></i>
                 </span>
@@ -71,9 +74,9 @@
     <div class="card">
         <div class="card-header" id="headingThree">
             <h2 class="mb-0">
-                <button class="d-flex align-items-center justify-content-between btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                <button class="d-flex align-items-center justify-content-between btn btn-block collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
                 받은 요청 ({{ requests|length }})
-                <span class="fa-stack fa-2x">
+                <span class="fa-stack">
                 <i class="fas fa-circle fa-stack-2x"></i>
                 <i class="fas fa-plus fa-stack-1x fa-inverse"></i>
                 </span>

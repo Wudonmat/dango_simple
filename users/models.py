@@ -87,8 +87,9 @@ class MyUser(AbstractBaseUser):
 
 
 class Dog(models.Model):
-    username = models.ForeignKey(MyUser, on_delete=models.CASCADE)
+    owner = models.ForeignKey(MyUser, on_delete=models.CASCADE)
     dog_name = models.CharField(verbose_name="Dog Name", max_length=18, null=False)
+    dog_age = models.IntegerField(verbose_name="Dog Age", null=False, default='0')
     dog_breed = models.CharField(choices=BREED_CHOICES, max_length=18, verbose_name="Dog Breed", null=False)
     dog_gender = models.CharField(choices=DOG_GENDER_CHOICES, max_length=18, verbose_name="Dog Gender", null=False)
     size = models.CharField(choices=SIZE_CHOICES, max_length=10, verbose_name="Dog Size", null=False)
@@ -107,24 +108,3 @@ class MyUserProfile(models.Model):
     walking_count = models.IntegerField(null=True)
     walking_time = models.IntegerField(null=True)
     manner = models.IntegerField(null=True)
-
-
-class DogReview(models.Model):
-    author = models.ForeignKey(MyUser, on_delete=models.CASCADE)
-    title = models.CharField(max_length=200)
-    text = models.TextField(null=True)
-    likes = models.IntegerField(null=True)
-    head_image = models.ImageField(
-        upload_to="blog/img/%Y/%m/%d/%H/",
-        blank=True)
-    created_date = models.DateTimeField(default=timezone.now)
-    published_date = models.DateTimeField(blank=True, null=True)
-
-
-    def publish(self):
-        self.published_date = timezone.now()
-        self.save()
-
-
-    def __str__(self):
-        return self.title

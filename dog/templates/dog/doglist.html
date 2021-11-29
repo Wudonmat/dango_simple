@@ -1,0 +1,95 @@
+{% extends 'main/layout.html' %}
+{% load crispy_forms_tags %}
+{% block head %}
+	{% load static %}
+    <link rel="stylesheet" href="{% static 'users/css/profile.css' %}">
+{% endblock head %}
+{% block content %}
+    <nav class="nav nav-tabs justify-content-around">
+        <a class="nav-item nav-link h3 active" href="{% url 'dog:list' %}">
+            <span class="d-none d-sm-inline">동네 견주</span>
+            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-binoculars" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" d="M3 2.5A1.5 1.5 0 0 1 4.5 1h1A1.5 1.5 0 0 1 7 2.5V5h2V2.5A1.5 1.5 0 0 1 10.5 1h1A1.5 1.5 0 0 1 13 2.5v2.382a.5.5 0 0 0 .276.447l.895.447A1.5 1.5 0 0 1 15 7.118V14.5a1.5 1.5 0 0 1-1.5 1.5h-3A1.5 1.5 0 0 1 9 14.5v-3a.5.5 0 0 1 .146-.354l.854-.853V9.5a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5v.793l.854.853A.5.5 0 0 1 7 11.5v3A1.5 1.5 0 0 1 5.5 16h-3A1.5 1.5 0 0 1 1 14.5V7.118a1.5 1.5 0 0 1 .83-1.342l.894-.447A.5.5 0 0 0 3 4.882V2.5zM4.5 2a.5.5 0 0 0-.5.5V3h2v-.5a.5.5 0 0 0-.5-.5h-1zM6 4H4v.882a1.5 1.5 0 0 1-.83 1.342l-.894.447A.5.5 0 0 0 2 7.118V13h4v-1.293l-.854-.853A.5.5 0 0 1 5 10.5v-1A1.5 1.5 0 0 1 6.5 8h3A1.5 1.5 0 0 1 11 9.5v1a.5.5 0 0 1-.146.354l-.854.853V13h4V7.118a.5.5 0 0 0-.276-.447l-.895-.447A1.5 1.5 0 0 1 12 4.882V4h-2v1.5a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5V4zm4-1h2v-.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5V3zm4 11h-4v.5a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5V14zm-8 0H2v.5a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5V14z"/>
+            </svg>
+        </a>
+        <a class="nav-item nav-link h3" href="{% url 'chat:conversations' %}">
+            <span class="d-none d-sm-inline">메세지</span>
+            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-chat-right-text" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" d="M2 1h12a1 1 0 0 1 1 1v11.586l-2-2A2 2 0 0 0 11.586 11H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zm12-1a2 2 0 0 1 2 2v12.793a.5.5 0 0 1-.854.353l-2.853-2.853a1 1 0 0 0-.707-.293H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h12z"/>
+                <path fill-rule="evenodd" d="M3 3.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zM3 6a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 3 6zm0 2.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z"/>
+            </svg>
+        </a>
+        <a class="nav-item nav-link h3" href="{% url 'friendship:friendship' %}">
+            <span class="d-none d-sm-inline">산책 메이트</span>
+            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-person-plus" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" d="M11 14s1 0 1-1-1-4-6-4-6 3-6 4 1 1 1 1h10zm-9.995-.944v-.002.002zM1.022 13h9.956a.274.274 0 0 0 .014-.002l.008-.002c-.001-.246-.154-.986-.832-1.664C9.516 10.68 8.289 10 6 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664a1.05 1.05 0 0 0 .022.004zm9.974.056v-.002.002zM6 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm3-2a3 3 0 1 1-6 0 3 3 0 0 1 6 0zm4.5 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5z"/>
+                <path fill-rule="evenodd" d="M13 7.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0v-2z"/>
+            </svg>
+        </a>
+        <a class="nav-item nav-link h3" href="{% url 'users:profile' %}" >
+            <span class="d-none d-sm-inline">프로필</span>
+            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-person-circle" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path d="M13.468 12.37C12.758 11.226 11.195 10 8 10s-4.757 1.225-5.468 2.37A6.987 6.987 0 0 0 8 15a6.987 6.987 0 0 0 5.468-2.63z"/>
+                <path fill-rule="evenodd" d="M8 9a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+                <path fill-rule="evenodd" d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zM0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8z"/>
+            </svg>
+        </a>
+    </nav>
+
+<div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column" style="background-color: #e9ecef;">
+
+<main>
+                <!-- row  -->
+          <div class="row mt-6">
+            <div class="col-md-12 col-12">
+              <!-- card  -->
+              <div class="card">
+                <!-- card header  -->
+                <div class="card-header bg-white border-bottom-0 py-4">
+                  <h4 class="mb-0">{{ request.user.address }} 주변의 메이트</h4>
+                </div>
+                <!-- table  -->
+                <div class="table-responsive">
+                  <table class="table table-striped">
+                    <thead>
+                      <tr>
+                        <th scope="col" class="text-center"></th>
+                        <th scope="col" class="text-center">이름</th>
+                        <th scope="col" class="text-center">산책요청</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                        {% for dog in dog_list %}
+                      <tr>
+                        <th class="align-middle text-center">
+                                  <div class="avatar avatar-sm">
+                                    <img src="{{ dog.avatar }}" alt="">
+                                </div>
+                        </th>
+                        <td class="align-middle text-center">
+                                  <h5 class="fw-bold mb-1"> <a href="#" class="text-inherit">{{ dog.username }}</a></h5>
+                        </td>
+                        <td class="align-middle text-center">
+                            <span>
+                                <form action="{% url 'friendship:friendship' %}" method="post" id="add-friend">
+                                    {% csrf_token %}
+                                    <div style="display: none;">
+                                    <label for="username"></label>
+                                    <textarea name="username" form="add-friend">{{ dog.username }}</textarea>
+                                    </div>
+                                    <button type="submit" class="tn btn-warning btn-sm">댕고</button>
+                                </form>
+                            </span>
+                        </td>
+                      </tr>
+                    {% endfor %}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- row  -->
+</main>
+</div>
+{% endblock content %}

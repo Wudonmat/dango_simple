@@ -4,7 +4,7 @@ from users.models import MyUser
 
 
 class AddFriendForm(forms.Form):
-    username = forms.CharField(max_length=30)
+    username = forms.CharField(label = "요청을 보낼 견주의 이름을 입력하세요.", max_length=30)
 
     def __init__(self, *args, **kwargs):
         self.user = kwargs.pop("user")
@@ -12,6 +12,7 @@ class AddFriendForm(forms.Form):
 
     def clean_username(self):
         if not MyUser.objects.filter(
+
             username=self.cleaned_data.get("username")
         ).exists():
             raise forms.ValidationError("Username does not exist")
