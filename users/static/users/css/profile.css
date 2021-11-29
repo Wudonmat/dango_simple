@@ -16481,7 +16481,6 @@ textarea.form-control-lg {
     .navbar-vertical .navbar-nav .nav-item .nav-link[data-bs-toggle="collapse"]:after {
       display: block;
       content: "";
-      background: url(../fonts/feather-icons/icons/chevron-down.svg);
       font-family: Feather;
       margin-left: auto;
       transition: 0.5s ease;
