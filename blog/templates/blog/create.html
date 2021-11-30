@@ -2,32 +2,45 @@
 <html lang="en">
 <head>
     {% load static %}
+
+  <!-- Favicon icon-->
+  <link rel="shortcut icon" type="image/x-icon" href="@@webRoot/assets/images/favicon/favicon.ico">
+
+  <!-- Libs CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.css">
+
     <link rel="stylesheet" href="{% static 'users/css/theme.css' %}">
     <meta charset="UTF-8">
     <title>write</title>
 </head>
 <body>
-<div class="row justify-content-center">
-<div class="col-xl-10 col-md-10 col-10 mt-6 mb-6">
-    <!-- card -->
-                <div class="card mb-4">
+    <div class="container d-flex flex-column">
+        <div class="row align-items-center justify-content-center g-0 min-vh-100">
+             <!-- card -->
+                <div class="col-12 col-md-8 col-lg-6 col-xxl-4 py-8 py-xl-0">
                   <!-- card body -->
-                  <div class="card-body">
-                    <div class="d-flex justify-content-between mb-5
-                        align-items-center">
-    <form action="/blog/post-create/" method="post" id="blog-create" enctype="multipart/form-data">
-        {% csrf_token %}
-        Title: <input type="text" name="title"/>
-        <div>
-            Head Image: <input type="file" id="image" name="image" form="blog-create"/>
-        </div>
-        <input type="submit" />
-    </form>
-    <textarea name="text" form="blog-create">Enter Content</textarea>
+                  <div class="card smooth-shadow-md">
+                    <div class="card-body p-6">
+                        <div class="mb-4">
+                        <h2>포스트 작성</h2>
+                      </div>
+                        <form action="/blog/post-create/" method="post" id="blog-create" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="mb-3">
+                                포스트 제목: <input type="text" name="title"/>
+                            </div>
+                            <div class="mb-3">
+                                이미지: <input type="file" id="image" name="image" form="blog-create"/>
+                            </div>
+                            <div class="mb-3">
+                                <textarea style="-webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; width: 100%;" name="text" form="blog-create">냉무</textarea>
+                            </div>
+                            <div class="mb-3"><input class="btn btn-primary" type="submit" /></div>
+                        </form>
                     </div>
                   </div>
                 </div>
-</div>
-</div>
+        </div>
+    </div>
 </body>
 </html>

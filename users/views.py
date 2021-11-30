@@ -42,7 +42,6 @@ def profile(request, ):
         "dog": dog,
         "avatar": request.user.avatar,
     }
-
     if request.method == "GET":
         return render(
             request,
@@ -96,7 +95,7 @@ def dog_update(request):
     if request.method == "POST":
         form = DogCreationForm(request.POST)
         if form.is_valid():
-            my_dog = form.save()
+            my_dog = form.save(commit=False)
             my_dog.owner = request.user
             my_dog.created_date = timezone.now()
             my_dog.save()
